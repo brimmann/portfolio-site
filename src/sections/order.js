@@ -1,1 +1,1 @@
-export default ["libs.html", "writings.html", "footer.html"]
+export default ['header.html', "me.html", "open-source.html"]

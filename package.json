@@ -12,6 +12,6 @@
     "vite": "^5.4.0"
   },
   "dependencies": {
-    "webpage-builder": "1.2.6"
+    "webpage-builder": "1.2.7"
   }
 }
