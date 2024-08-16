@@ -4,5 +4,5 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
     // plugins: [wpPlugin()],
-    base: 'https://powerk.codeglyn.com'
+    base: 'https://me.codeglyn.com'
 })
