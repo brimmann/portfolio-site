@@ -1,1 +1,0 @@
-export default ['header.html', "me.html", "writings.html", "open-source.html", "work.html", "footer.html"]

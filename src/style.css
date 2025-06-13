@@ -1,8 +1,485 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-#app {
-  max-width: 700px;
-  margin: auto;
+/* CSS Custom Properties for consistent theming */
+:root {
+  --animation-duration: 0.3s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-dark: rgba(0, 0, 0, 0.3);
+}
+
+.dark {
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-color-dark: rgba(0, 0, 0, 0.5);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+.font-mono {
+  font-family: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+}
+
+/* Background Geometric Elements */
+.geometric-bg::before,
+.geometric-bg::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1),
+    rgba(147, 51, 234, 0.1)
+  );
+  border-radius: 50%;
+  animation: float 20s ease-in-out infinite;
+}
+
+.geometric-bg::before {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  right: -150px;
+  animation-delay: 0s;
+}
+
+.geometric-bg::after {
+  width: 400px;
+  height: 400px;
+  bottom: 10%;
+  left: -200px;
+  animation-delay: -10s;
+}
+
+/* Custom Animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-20px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(-40px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-20px) rotate(270deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(-90deg);
+  }
+  50% {
+    transform: translateY(-30px) rotate(-180deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(-270deg);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Animation Classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s var(--transition-timing);
+}
+
+.fade-in-up.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-up.delay-200 {
+  transition-delay: 200ms;
+}
+
+.fade-in-up.delay-300 {
+  transition-delay: 300ms;
+}
+
+.fade-in-up.delay-400 {
+  transition-delay: 400ms;
+}
+
+/* Card Styles */
+.writing-card {
+  @apply bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl;
+  transition: all 0.4s var(--transition-timing);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.writing-card.animate-in,
+.writing-card:hover {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.writing-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px var(--shadow-color);
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.experience-card {
+  @apply bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg;
+  transition: all 0.4s var(--transition-timing);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.experience-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.experience-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px var(--shadow-color);
+}
+
+.opensource-card {
+  @apply bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg hover:shadow-2xl p-5;
+  transition: all 0.4s var(--transition-timing);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(30px);
+  overflow: hidden;
+  position: relative;
+}
+
+.opensource-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.opensource-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px var(--shadow-color);
+}
+
+.opensource-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.opensource-card:hover::before {
+  opacity: 1;
+}
+
+/* Section Headers */
+.section-header {
+  margin-bottom: 3rem;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #3b82f6;
+  border-radius: 50%;
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  transition: transform 0.1s ease;
+}
+
+.cursor-outline {
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  transition: all 0.15s ease;
+}
+
+.custom-cursor.hover .cursor-dot {
+  transform: scale(2);
+}
+
+.custom-cursor.hover .cursor-outline {
+  transform: scale(1.5);
+  border-color: rgba(59, 130, 246, 0.6);
+}
+
+/* Utility Classes */
+.rounded-square {
+  border-radius: 20%;
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+  .writing-card:hover,
+  .experience-card:hover,
+  .opensource-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .custom-cursor {
+    display: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .geometric-bg,
+  .custom-cursor,
+  #theme-toggle {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .writing-card,
+  .experience-card,
+  .opensource-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .writing-card,
+  .experience-card,
+  .opensource-card {
+    border: 2px solid;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .geometric-bg::before,
+  .geometric-bg::after {
+    animation: none;
+  }
+}
+
+/* Focus styles for accessibility */
+a:focus,
+button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Loading states */
+body:not(.loaded) .fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+body.loaded .fade-in-up {
+  animation: fade-in-up 0.6s var(--transition-timing) forwards;
+}
+
+/* Smooth scrolling enhancement */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: inherit;
+}
+
+.dark ::selection {
+  background: rgba(59, 130, 246, 0.4);
+}
+
+/* Ensure smooth transitions for theme switching */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* Performance optimizations */
+.writing-card,
+.experience-card,
+.opensource-card {
+  will-change: transform;
+}
+
+.geometric-bg::before,
+.geometric-bg::after {
+  will-change: transform;
+}
+
+/* Container max-width adjustments */
+.container {
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
 }
